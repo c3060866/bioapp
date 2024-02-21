@@ -27,7 +27,29 @@ class NucleotideTestCase(unittest.TestCase):
             nuc = Nucleotide(">")
 
     
+class SequenceTestCase(unittest.TestCase):
 
+    def test_is_nucleotide(self):
+        seq = Sequence("ATCGatgc")
+        for i in range(len(seq)):
+            self.assertIsInstance(seq[i], Nucleotide)
+
+        
+
+    def test_add_sequence(self):
+        seq = Sequence("ATCGGTGCAGTAGCDBM")
+        self.assertEqual(str(seq), "ATCGGTGCAGTAGCNNN")
+
+    def test_sequence_list(self):
+        seq = Sequence("ATCgGTGcAGTAGCDBM")
+        self.assertEqual(str(seq.list()), "[A, T, C, G, G, T, G, C, A, G, T, A, G, C, N, N, N]")
+
+    def test_sequence_invalid(self):
+        with self.assertRaises(ValueError):
+            seq = Sequence("ATCGGTGCAGTAGCDBM1")
+        
+    
+    
     
 
 if __name__ == '__main__':
