@@ -1,5 +1,5 @@
 import unittest
-from sequence import *
+from build.sequence import *
 
 class NucleotideTestCase(unittest.TestCase):
     # Test cases for the Valid Nucleotide
