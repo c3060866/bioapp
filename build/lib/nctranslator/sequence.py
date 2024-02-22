@@ -1,4 +1,9 @@
-
+# This file contains the Nucleotide and Sequence classes. The Nucleotide class is used to represent a nucleotide in a DNA sequence. 
+# The Sequence class is used to represent a DNA sequence. The Nucleotide class has a single attribute, nucleotide, which is a string. 
+# The Nucleotide class has a single method, add_nucleotide, which checks if the nucleotide is valid and then adds it to the sequence. 
+# The Nucleotide class also takes in RNA nucleotides and converts them to DNA nucleotides. The Sequence class has a single attribute, sequence, which is a string. 
+# The Sequence class has a single method, add_nucleotide, which adds a nucleotide to the sequence.
+# The Sequence class also has a method, __len__, which returns the length of the sequence.
 
 class Nucleotide:
 

@@ -136,11 +136,19 @@ def main():
     translator = Translator()
     parser = argparse.ArgumentParser(description="Translate DNA sequence to protein sequence")
     
-    parser.add_argument('-i', '--input', help="DNA sequence to be translated, takes a fasta string or a file", required=True)
+    parser.add_argument('-i', '--input', help="DNA sequence to be translated, takes a regular string, fasta string or a file")
     parser.add_argument('-f', '--frame', type=int, help="Frame to translate the sequence, '0' '1' '2'", default=0)
+    # parser.add_argument('--help', action='help', help="""Translate DNA sequence to protein sequence
+    #                     -i, --input: DNA sequence to be translated, takes a regular string, fasta string or a fasta file
+    #                     -f, --frame: Frame to translate the sequence, '0' '1' '2', optional, default is 0
+    #                     -h, --help: Show this help message and exit""")
 
     args = parser.parse_args()
     # print(args.input, args.frame)
+
+    if not any(vars(args).values()):
+        parser.print_help()
+        return
 
     out = translator.fasta_handler(args.input, args.frame)
 

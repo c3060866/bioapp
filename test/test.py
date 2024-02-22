@@ -1,5 +1,10 @@
 import unittest
 from nctranslator.sequence import *
+from nctranslator.nctranslator import *
+
+
+
+
 
 class NucleotideTestCase(unittest.TestCase):
     # Test cases for the Valid Nucleotide
