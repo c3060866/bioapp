@@ -35,6 +35,18 @@ class Translator:
                 sequences.append(record)
         return sequences
 
+    def fasta_handler(self, input):
+	output = []
+	if input isinstance(str):
+	    sequences = self.fasta_input(input)
+	if input isinstance(file):
+	    sequences = self.fasta_input_file(input)
+	for i in sequences:
+	    transseq = ""
+	    transseq = self.translate(str(i.seq))
+	    output.append([i.id,transseq])
+	return output
+
     def translate(self, sequence):
         self.input_sequence(sequence)
 
@@ -121,7 +133,7 @@ fasta = """>1
     ATGTTT 
     AAAGGTG
     cagtgtattacggg"""
-print(str(test.fasta_input(fasta)[0]))
+print(test.fasta_handler(fasta))
 
 def __main__():
     test = Translator()
