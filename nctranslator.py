@@ -1,7 +1,8 @@
 from sequence import *
 from Bio import SeqIO
 from io import StringIO
-
+import os.path
+import argparse
 
 
 
@@ -9,6 +10,7 @@ class Translator:
 
     def __init__(self):
         self.input = None
+        self.frame = 0
         self.translated_sequence = ""
         
 
@@ -31,9 +33,22 @@ class Translator:
     def fasta_input_file(self, file):
         sequences = []
         for record in SeqIO.parse(file, "fasta"):
-                print(record)
                 sequences.append(record)
         return sequences
+
+    def fasta_handler(self, input ,frame=0):
+        self.frame = frame
+        output = []
+        if isinstance(input, str):
+            sequences = self.fasta_input(input)
+        if os.path.isfile(input):
+            sequences = self.fasta_input_file(input)
+        for i in sequences:
+            transseq = ""
+            transseq = self.translate(str(i.seq))
+            output.append([i.id,transseq])
+        
+        return output
 
     def translate(self, sequence):
         self.input_sequence(sequence)
@@ -50,7 +65,7 @@ class Translator:
                 if self.translation(codon) != None:
                     self.translated_sequence += self.translation(codon)
 
-        return self.translated_sequence
+        return self.frame_translation(self.frame)
     
     def frame_translation(self, frame):
         frame_sequence = ""
@@ -112,26 +127,22 @@ class Translator:
     def print_sequence(self):
         print(self.input)
 
-sample ="ATGTTTAAAGGTG"
-test = Translator()
-# print(test.translate("ATGTTTAAAGGTG"))
-# print(test.frame_translation(2))
+# 
+        
 
-fasta = """>1   
-    ATGTTT 
-    AAAGGTG
-    cagtgtattacggg"""
-print(str(test.fasta_input(fasta)[0]))
+if __name__ == "__main__":
+    translator = Translator()
+    parser = argparse.ArgumentParser(description="Translate DNA sequence to protein sequence")
+    
+    parser.add_argument('-i', '--input', help="DNA sequence to be translated, takes a fasta string or a file", required=True)
+    parser.add_argument('-f', '--frame', help="Frame to translate the sequence, '0' '1' '2'", default=0)
 
-print(test.fasta_input_file("test.fasta"))
+    args = parser.parse_args()
+    # print(args.input, args.frame)
 
-# def __main__():
-#     test = Translator()
-#     print(test.translate("ATGTTTAAAGGTG"))
-#     print(test.frame_translation(2))
+    out = translator.fasta_handler(args.input, args.frame)
 
-#     fasta = """>1   
-#         ATGTTT 
-#         AAAGGTG
-#         cagtgtattacggg"""
-#     print(str(test.fasta_input(fasta)[0]))
+    for i in out:
+
+        print("> %s\n%s" % (i[0], i[1]))
+
