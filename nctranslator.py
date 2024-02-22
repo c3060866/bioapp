@@ -28,6 +28,7 @@ class Translator:
             for record in SeqIO.parse(fasta_handle, "fasta"):
                 print(record)
                 sequences.append(record)
+
         return sequences
     
     def fasta_input_file(self, file):
@@ -36,7 +37,7 @@ class Translator:
                 sequences.append(record)
         return sequences
 
-    def fasta_handler(self, input ,frame=0):
+    def fasta_handler(self, input ,frame):
         self.frame = frame
         output = []
         if isinstance(input, str):
@@ -47,6 +48,9 @@ class Translator:
             transseq = ""
             transseq = self.translate(str(i.seq))
             output.append([i.id,transseq])
+
+        if sequences == []:
+            return self.translate(input)
         
         return output
 
@@ -135,14 +139,17 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Translate DNA sequence to protein sequence")
     
     parser.add_argument('-i', '--input', help="DNA sequence to be translated, takes a fasta string or a file", required=True)
-    parser.add_argument('-f', '--frame', help="Frame to translate the sequence, '0' '1' '2'", default=0)
+    parser.add_argument('-f', '--frame', type=int, help="Frame to translate the sequence, '0' '1' '2'", default=0)
 
     args = parser.parse_args()
     # print(args.input, args.frame)
 
     out = translator.fasta_handler(args.input, args.frame)
 
-    for i in out:
+    if isinstance(out, str):
+        print(out)
+    else:
+        for i in out:
 
-        print("> %s\n%s" % (i[0], i[1]))
+            print("> %s\n%s" % (i[0], i[1]))
 
