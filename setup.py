@@ -21,6 +21,11 @@ setup(
     long_description_content_type="text/markdown",
     long_description=long_description,
     packages=find_packages(),
+    entry_points={
+        'console_scripts': [
+            'nctranslator = nctranslator.nctranslator:main'
+        ]
+    },
     install_requires=["biopython"],
     keywords=['python', 'DNA', 'sequence', 'translator'],
     classifiers=[
