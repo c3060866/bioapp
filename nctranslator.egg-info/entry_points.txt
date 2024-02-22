@@ -1,2 +1,0 @@
-[console_scripts]
-nctranslator = nctranslator.nctranslator:main
