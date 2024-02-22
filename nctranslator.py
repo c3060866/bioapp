@@ -123,13 +123,15 @@ fasta = """>1
     cagtgtattacggg"""
 print(str(test.fasta_input(fasta)[0]))
 
-def __main__():
-    test = Translator()
-    print(test.translate("ATGTTTAAAGGTG"))
-    print(test.frame_translation(2))
+print(test.fasta_input_file("test.fasta"))
 
-    fasta = """>1   
-        ATGTTT 
-        AAAGGTG
-        cagtgtattacggg"""
-    print(str(test.fasta_input(fasta)[0]))
+# def __main__():
+#     test = Translator()
+#     print(test.translate("ATGTTTAAAGGTG"))
+#     print(test.frame_translation(2))
+
+#     fasta = """>1   
+#         ATGTTT 
+#         AAAGGTG
+#         cagtgtattacggg"""
+#     print(str(test.fasta_input(fasta)[0]))
