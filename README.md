@@ -27,9 +27,11 @@ options:
 ```
 
 To use in modules import using 
-``` from nctranslator.nctranslator import * 
+```
+  from nctranslator.nctranslator import * 
 
     translator = Translator() 
     output = translator.fasta_handler(sequence, frame)
-    # Where sequence is you input and frame is the reading frame ```
+    # Where sequence is you input and frame is the reading frame
+```
 
