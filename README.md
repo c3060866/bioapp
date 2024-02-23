@@ -8,17 +8,18 @@ The project also hasn't been tested on 'Production' build, was only tested using
 
 ### Running the project
 
-Clone the repo using 
-'''git clone -b webapp https://github.com/c3060866/bioapp'''
+Clone the repo using  
 
-Install requirements using (Virtual Environment Higly recommened)
-'''pip install -r "requirements.txt"'''
+` git clone -b webapp https://github.com/c3060866/bioapp `
 
-Run the main.py file to start server on localhost:5000
+Install requirements using (Virtual Environment Higly recommened)  
+` pip install -r "requirements.txt" `
 
-'''python main.py'''
-or 
-'''python3 main.py'''
+Run the main.py file to start server on localhost:5000  
+
+` python main.py `  
+or   
+` python3 main.py `  
 incase of a linux system
 
 Visit http://localhost:5000/ to use the app.
