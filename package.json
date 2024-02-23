@@ -1,0 +1,16 @@
+{
+  "name": "bioapp",
+  "version": "1.0.0",
+  "description": "This is a simple translation tool which processes nucleotide sequences into aminoacid sequences.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tw": "npx tailwindcss -i ./static/src/input.css -o ./static/css/main.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
