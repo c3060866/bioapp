@@ -19,7 +19,7 @@ class Nucleotide:
         # print(type(self.nucleotide))
         self.fixed_nucleotide = ''
         self.add_nucleotide()
-
+    # method to check if the nucleotide is valid
     def check_nucleotide(self):
         if self.nucleotide in ['A', 'T', 'C', 'G']:
             
@@ -27,7 +27,7 @@ class Nucleotide:
         else:
             
             return False
-        
+     # method to convert RNA nucleotides to DNA nucleotides   
     def fix_nucleotide(self):
         if self.nucleotide in ['a', 't', 'c', 'g', 'A', 'T', 'C', 'G']:
             return self.nucleotide.upper()
@@ -38,7 +38,7 @@ class Nucleotide:
         else:
             raise ValueError('Invalid Nucleotide')
             
-        
+    # method to add the nucleotide to the sequence if it is valid or convert it to a valid nucleotide and then add it to the sequence.
     def add_nucleotide(self):
         if self.check_nucleotide():
             self.fixed_nucleotide = self.nucleotide
@@ -65,7 +65,7 @@ class Sequence:
         self.fixed_sequence = []
         self.add_nucleotide()
 
-        
+    # method to add a nucleotide to the sequence converts string into a list of Nucleotide objects
     def add_nucleotide(self):
         for i in self.sequence:
             nuc = Nucleotide(i)
