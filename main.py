@@ -4,21 +4,21 @@ import requests
 import time
 from bs4 import BeautifulSoup, Comment
 
-
+# Web application using Flask to handle the fasta sequence and blast query using the library nctranslator.
 
 app = Flask(__name__)
 app.secret_key = 'secret10101090'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-
-
+    
+    # Function to handle the fasta sequence using the Translator class
     def fasta_handler(sequence, frame):
         translator = Translator()
         out = translator.fasta_handler(sequence, frame)
         
         return out
-    
+    # Handle form submit
     if 'submit_button' in request.form:
         # Form submitted, process the data
         if request.form['submit_button'] == 'Submit':
@@ -41,11 +41,11 @@ def index():
         return render_template('index.html')
 
 @app.route('/query', methods=['POST'])
-
+# query function to handle the blast query
 def query():
     url = 'https://blast.ncbi.nlm.nih.gov/Blast.cgi'
     seq = request.form.get('sequence', "")
-
+    # Function to post the blast query to the NCBI server, by default the database is set to 'nr'
     def post_query(url, query):
         parameters = {
         'QUERY': query,
@@ -57,9 +57,7 @@ def query():
             response = requests.post(url, data=parameters)
             
             if response.status_code == 200:
-            # Extract the RID (Request Identifier) from the response
-                soup = BeautifulSoup(response.content, 'html.parser')
-
+            # Extract the RID (Request Identifier) and rtoe(Estimated time of completion) from the response using bs4 to parser the html response
                 soup = BeautifulSoup(response.content, 'html.parser')
                 comments = soup.find_all(string=lambda text: isinstance(text, Comment) and 'QBlastInfoBegin' in text)
                 # print(comments)
@@ -74,27 +72,29 @@ def query():
                     print(i)
                 
                 # render_template('index.html', output=session['out'], input=session['sequence'], frame=session['frame'])
+                    # While loop to check the status of the query, if the status is 'WAITING' or 'UNKNOWN' the loop will continue to check the status of the query
                     ti = 0
                     while i[4] in ['WAITING', 'UNKNOWN']:
                         
-                        time.sleep(10)
+                        time.sleep(30)
                         status = get_status(i[2])
                         i[4] = status
 
                         ti += 1
 
-                        if ti > 2:
+                        # Timeout for the query, if the query takes more than ~2.5 minutes to complete, exits loop and returns 'TOOLONG'
+                        if ti > 5:
                             status = 'TOOLONG'
                             i[4] = status
 
                             return render_template('index.html', output=session['out'], input=session['sequence'], frame=session['frame'])
                             
-                        
+                        #  Error handling for the query, if the status is 'UNKNOWN' the loop will exit and return 'Error: UNKNOWN'
                         if status == 'UNKNOWN':
                             return f"Error: {status}"
                         
                         # return render_template('index.html', output=session['out'], input=session['sequence'], frame=session['frame'])
-                        
+                    # If the status is 'READY' the loop will exit and return the result of the query
                     if status == 'READY':
                         i[4] == status
 
@@ -108,7 +108,7 @@ def query():
             print(e)
             return f"Error: {e}"
         
-
+    # Function to get the status of the query using RID (Request Identifier)
     def get_status(rid):
         get_parameters = {
             'CMD': 'Get',

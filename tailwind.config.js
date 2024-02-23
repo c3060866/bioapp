@@ -2,8 +2,14 @@
 module.exports = {
   content: ["./templates/*"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Open Sans', 'sans-serif'],
+      },
   },
-  plugins: [],
+  },
+  plugins: [
+    require("tailwindcss-animate"),
+  ],
 }
 
