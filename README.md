@@ -12,7 +12,7 @@ Clone the repo using
 
 ` git clone -b webapp https://github.com/c3060866/bioapp `
 
-Install requirements using (Virtual Environment Higly recommened)  
+Install requirements using (Virtual Environment Highly recommened)  
 ` pip install -r "requirements.txt" `
 
 Run the main.py file to start server on localhost:5000  
